@@ -1,0 +1,3169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta
+        name="description"
+        content="ProtonNG provides solar installation, energy storage and maintenance solutions for homes and businesses across Nigeria."
+    />
+
+    <meta name="theme-color" content="#111111" />
+
+    <title>ProtonNG — Solar Energy Systems</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+        rel="stylesheet"
+    />
+
+    <style>
+        /* =========================================================
+           RESET
+        ========================================================= */
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: "DM Sans", sans-serif;
+            color: #111111;
+            background: #f7f6f2;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        body.modal-open {
+            overflow: hidden;
+        }
+
+        img {
+            display: block;
+            width: 100%;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button,
+        input,
+        select,
+        textarea {
+            font: inherit;
+        }
+
+        button {
+            border: 0;
+            cursor: pointer;
+        }
+
+        ::selection {
+            background: #111111;
+            color: #ffffff;
+        }
+
+        /* =========================================================
+           VARIABLES
+        ========================================================= */
+
+        :root {
+            --black: #111111;
+            --ink: #202020;
+            --muted: #686864;
+            --soft: #a09f98;
+            --paper: #f7f6f2;
+            --white: #ffffff;
+            --line: rgba(17, 17, 17, 0.11);
+            --gold: #b99555;
+            --dark: #171716;
+            --dark-soft: #242422;
+
+            --serif: "Playfair Display", serif;
+            --sans: "DM Sans", sans-serif;
+
+            --container: 1240px;
+        }
+
+        /* =========================================================
+           UTILITIES
+        ========================================================= */
+
+        .container {
+            width: min(var(--container), calc(100% - 48px));
+            margin-inline: auto;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+
+        .eyebrow::before {
+            content: "";
+            width: 28px;
+            height: 1px;
+            background: currentColor;
+        }
+
+        .display {
+            font-family: var(--serif);
+            font-size: clamp(48px, 7vw, 88px);
+            line-height: 0.98;
+            letter-spacing: -0.035em;
+            font-weight: 600;
+        }
+
+        .display em {
+            font-style: italic;
+            font-weight: 500;
+        }
+
+        .heading {
+            font-family: var(--serif);
+            font-size: clamp(34px, 4.5vw, 58px);
+            line-height: 1.04;
+            letter-spacing: -0.025em;
+            font-weight: 600;
+        }
+
+        .body-large {
+            font-size: clamp(17px, 1.5vw, 20px);
+            line-height: 1.75;
+            color: var(--muted);
+        }
+
+        .body {
+            font-size: 15px;
+            line-height: 1.75;
+            color: var(--muted);
+        }
+
+        .section {
+            padding: 120px 0;
+        }
+
+        .section-dark {
+            background: var(--dark);
+            color: white;
+        }
+
+        .section-heading {
+            max-width: 680px;
+            margin-bottom: 64px;
+        }
+
+        .section-heading .eyebrow {
+            margin-bottom: 18px;
+        }
+
+        .section-heading .heading {
+            margin-bottom: 18px;
+        }
+
+        .section-heading .body {
+            max-width: 560px;
+        }
+
+        /* =========================================================
+           ICONS
+        ========================================================= */
+
+        .icon {
+            width: 20px;
+            height: 20px;
+            flex: 0 0 auto;
+        }
+
+        /* =========================================================
+           HEADER
+        ========================================================= */
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            height: 84px;
+            display: flex;
+            align-items: center;
+            background: rgba(247, 246, 242, 0.88);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border-bottom: 1px solid transparent;
+            transition:
+                height 0.3s ease,
+                border-color 0.3s ease,
+                background 0.3s ease;
+        }
+
+        .header.scrolled {
+            height: 70px;
+            border-color: var(--line);
+            background: rgba(247, 246, 242, 0.96);
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-family: var(--serif);
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.04em;
+        }
+
+        .logo span {
+            color: var(--gold);
+        }
+
+        .desktop-nav {
+            display: flex;
+            align-items: center;
+            gap: 34px;
+        }
+
+        .desktop-nav > a:not(.header-cta) {
+            position: relative;
+            font-size: 13px;
+            font-weight: 600;
+            color: #575752;
+        }
+
+        .desktop-nav > a:not(.header-cta)::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -8px;
+            width: 0;
+            height: 1px;
+            background: var(--black);
+            transition: width 0.25s ease;
+        }
+
+        .desktop-nav > a:hover::after,
+        .desktop-nav > a.active::after {
+            width: 100%;
+        }
+
+        .desktop-nav > a.active {
+            color: var(--black);
+        }
+
+        .header-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            padding: 11px 18px;
+            background: var(--black);
+            color: white;
+            font-size: 13px;
+            font-weight: 600;
+            border-radius: 2px;
+            transition:
+                transform 0.2s ease,
+                background 0.2s ease;
+        }
+
+        .header-cta:hover {
+            background: #292929;
+            transform: translateY(-1px);
+        }
+
+        .menu-button {
+            display: none;
+            width: 42px;
+            height: 42px;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--line);
+            background: transparent;
+        }
+
+        .menu-button svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* =========================================================
+           MOBILE MENU
+        ========================================================= */
+
+        .mobile-menu {
+            position: fixed;
+            inset: 0;
+            z-index: 1100;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 48px;
+            background: var(--paper);
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(.77,0,.18,1);
+        }
+
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+
+        .mobile-close {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            width: 42px;
+            height: 42px;
+            border: 1px solid var(--line);
+            background: transparent;
+        }
+
+        .mobile-links {
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+        }
+
+        .mobile-links a {
+            font-family: var(--serif);
+            font-size: 42px;
+            letter-spacing: -0.03em;
+        }
+
+        .mobile-links .mobile-cta {
+            display: inline-flex;
+            width: fit-content;
+            margin-top: 18px;
+            padding: 14px 20px;
+            background: var(--black);
+            color: white;
+            font-family: var(--sans);
+            font-size: 14px;
+            letter-spacing: 0;
+        }
+
+        /* =========================================================
+           PAGE SYSTEM
+        ========================================================= */
+
+        .page {
+            display: none;
+            padding-top: 84px;
+        }
+
+        .page.active {
+            display: block;
+            animation: pageIn 0.45s ease both;
+        }
+
+        @keyframes pageIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* =========================================================
+           HERO
+        ========================================================= */
+
+        .hero {
+            padding: 70px 0 110px;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+            gap: 80px;
+            align-items: end;
+        }
+
+        .hero-copy {
+            padding-bottom: 12px;
+        }
+
+        .hero-copy .eyebrow {
+            margin-bottom: 26px;
+        }
+
+        .hero-copy .display {
+            margin-bottom: 28px;
+        }
+
+        .hero-copy .body-large {
+            max-width: 510px;
+            margin-bottom: 38px;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            min-height: 48px;
+            padding: 0 20px;
+            font-size: 13px;
+            font-weight: 700;
+            border-radius: 2px;
+            transition:
+                background 0.2s ease,
+                color 0.2s ease,
+                border-color 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        .button-primary {
+            background: var(--black);
+            color: white;
+        }
+
+        .button-primary:hover {
+            background: #292929;
+            transform: translateY(-2px);
+        }
+
+        .button-outline {
+            border: 1px solid var(--black);
+            color: var(--black);
+            background: transparent;
+        }
+
+        .button-outline:hover {
+            background: var(--black);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .button-light {
+            background: white;
+            color: var(--black);
+        }
+
+        .button-light:hover {
+            background: #ecebe7;
+            transform: translateY(-2px);
+        }
+
+        .hero-visual {
+            position: relative;
+        }
+
+        .hero-image {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 1.15 / 1;
+            background: #dedcd5;
+        }
+
+        .hero-image::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                180deg,
+                transparent 65%,
+                rgba(0,0,0,.28)
+            );
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-caption {
+            position: absolute;
+            bottom: 24px;
+            left: 24px;
+            z-index: 2;
+            color: white;
+            font-size: 12px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .hero-number {
+            position: absolute;
+            right: -22px;
+            bottom: -22px;
+            z-index: 3;
+            width: 118px;
+            height: 118px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: var(--gold);
+            color: white;
+            text-align: center;
+        }
+
+        .hero-number strong {
+            font-family: var(--serif);
+            font-size: 38px;
+            line-height: 1;
+        }
+
+        .hero-number span {
+            margin-top: 6px;
+            font-size: 9px;
+            line-height: 1.3;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+        }
+
+        /* =========================================================
+           TRUST STRIP
+        ========================================================= */
+
+        .trust-strip {
+            border-top: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .trust-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        .trust-item {
+            min-height: 108px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 22px 28px;
+            border-right: 1px solid var(--line);
+        }
+
+        .trust-item:first-child {
+            padding-left: 0;
+        }
+
+        .trust-item:last-child {
+            border-right: 0;
+        }
+
+        .trust-mark {
+            width: 34px;
+            height: 34px;
+            display: grid;
+            place-items: center;
+            border: 1px solid var(--line);
+            flex: 0 0 auto;
+        }
+
+        .trust-mark svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .trust-item strong {
+            display: block;
+            font-size: 13px;
+            margin-bottom: 2px;
+        }
+
+        .trust-item span {
+            display: block;
+            font-size: 11px;
+            color: var(--muted);
+        }
+
+        /* =========================================================
+           SERVICES
+        ========================================================= */
+
+        .services-intro {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: end;
+            margin-bottom: 64px;
+        }
+
+        .services-intro .body {
+            max-width: 480px;
+        }
+
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: var(--line);
+            border: 1px solid var(--line);
+        }
+
+        .service-card {
+            background: var(--paper);
+        }
+
+        .service-image {
+            aspect-ratio: 4 / 3;
+            overflow: hidden;
+        }
+
+        .service-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform .5s ease;
+        }
+
+        .service-card:hover .service-image img {
+            transform: scale(1.035);
+        }
+
+        .service-content {
+            padding: 28px;
+        }
+
+        .service-index {
+            display: block;
+            margin-bottom: 28px;
+            font-size: 11px;
+            color: var(--soft);
+            letter-spacing: .12em;
+        }
+
+        .service-content h3 {
+            font-family: var(--serif);
+            font-size: 27px;
+            line-height: 1.1;
+            margin-bottom: 12px;
+        }
+
+        .service-content p {
+            margin-bottom: 22px;
+        }
+
+        .service-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .1em;
+        }
+
+        .service-link svg {
+            width: 14px;
+            transition: transform .2s ease;
+        }
+
+        .service-link:hover svg {
+            transform: translateX(4px);
+        }
+
+        /* =========================================================
+           STATEMENT / WHY
+        ========================================================= */
+
+        .statement {
+            display: grid;
+            grid-template-columns: .8fr 1.2fr;
+            gap: 100px;
+            align-items: start;
+        }
+
+        .statement-large {
+            font-family: var(--serif);
+            font-size: clamp(32px, 4vw, 54px);
+            line-height: 1.1;
+            letter-spacing: -.025em;
+        }
+
+        .statement-copy {
+            max-width: 580px;
+        }
+
+        .statement-copy > .body {
+            margin-bottom: 42px;
+        }
+
+        .principles {
+            border-top: 1px solid var(--line);
+        }
+
+        .principle {
+            display: grid;
+            grid-template-columns: 42px 1fr;
+            gap: 20px;
+            padding: 24px 0;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .principle-number {
+            font-size: 11px;
+            color: var(--gold);
+            font-weight: 700;
+            padding-top: 4px;
+        }
+
+        .principle h3 {
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+
+        .principle p {
+            font-size: 14px;
+            color: var(--muted);
+        }
+
+        /* =========================================================
+           PROCESS
+        ========================================================= */
+
+        .process-section {
+            background: var(--dark);
+            color: white;
+        }
+
+        .process-section .body {
+            color: rgba(255,255,255,.6);
+        }
+
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            border-top: 1px solid rgba(255,255,255,.15);
+            border-bottom: 1px solid rgba(255,255,255,.15);
+        }
+
+        .process-step {
+            padding: 36px 28px 40px;
+            border-right: 1px solid rgba(255,255,255,.15);
+        }
+
+        .process-step:first-child {
+            padding-left: 0;
+        }
+
+        .process-step:last-child {
+            border-right: 0;
+        }
+
+        .process-step-number {
+            font-family: var(--serif);
+            font-size: 42px;
+            color: var(--gold);
+            margin-bottom: 32px;
+        }
+
+        .process-step h3 {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .process-step p {
+            font-size: 13px;
+            line-height: 1.7;
+            color: rgba(255,255,255,.55);
+        }
+
+        /* =========================================================
+           WORK
+        ========================================================= */
+
+        .work-header {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            gap: 30px;
+            margin-bottom: 52px;
+        }
+
+        .work-header .section-heading {
+            margin-bottom: 0;
+        }
+
+        .view-all {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .1em;
+            white-space: nowrap;
+        }
+
+        .view-all svg {
+            width: 15px;
+        }
+
+        .work-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 16px;
+        }
+
+        .work-item {
+            position: relative;
+            overflow: hidden;
+            background: #dedcd5;
+        }
+
+        .work-item:nth-child(1) {
+            grid-column: span 7;
+            aspect-ratio: 1.35 / 1;
+        }
+
+        .work-item:nth-child(2) {
+            grid-column: span 5;
+            aspect-ratio: 1 / 1;
+        }
+
+        .work-item:nth-child(3) {
+            grid-column: span 5;
+            aspect-ratio: 1 / 1;
+        }
+
+        .work-item:nth-child(4) {
+            grid-column: span 7;
+            aspect-ratio: 1.35 / 1;
+        }
+
+        .work-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform .6s ease;
+        }
+
+        .work-item:hover img {
+            transform: scale(1.035);
+        }
+
+        .work-overlay {
+            position: absolute;
+            inset: auto 0 0;
+            padding: 24px;
+            color: white;
+            background: linear-gradient(
+                transparent,
+                rgba(0,0,0,.65)
+            );
+            transform: translateY(5px);
+            transition: transform .3s ease;
+        }
+
+        .work-item:hover .work-overlay {
+            transform: translateY(0);
+        }
+
+        .work-overlay span {
+            display: block;
+            font-size: 10px;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+            opacity: .75;
+        }
+
+        .work-overlay strong {
+            font-family: var(--serif);
+            font-size: 23px;
+            font-weight: 500;
+        }
+
+        /* =========================================================
+           CTA
+        ========================================================= */
+
+        .cta-section {
+            background: #e9e6df;
+        }
+
+        .cta-box {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 60px;
+            align-items: end;
+        }
+
+        .cta-box .heading {
+            max-width: 700px;
+        }
+
+        .cta-box .body {
+            max-width: 550px;
+            margin-top: 18px;
+        }
+
+        /* =========================================================
+           SERVICES PAGE
+        ========================================================= */
+
+        .inner-hero {
+            padding: 90px 0 80px;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .inner-hero-content {
+            max-width: 760px;
+        }
+
+        .inner-hero-content .eyebrow {
+            margin-bottom: 22px;
+        }
+
+        .inner-hero-content .heading {
+            margin-bottom: 20px;
+        }
+
+        .service-detail {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            padding: 90px 0;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .service-detail.reverse .service-detail-image {
+            order: 2;
+        }
+
+        .service-detail-image {
+            aspect-ratio: 1.15 / 1;
+            overflow: hidden;
+            background: #dedcd5;
+        }
+
+        .service-detail-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .service-detail-content .eyebrow {
+            margin-bottom: 18px;
+        }
+
+        .service-detail-content h2 {
+            font-family: var(--serif);
+            font-size: clamp(34px, 4vw, 52px);
+            line-height: 1.05;
+            margin-bottom: 18px;
+        }
+
+        .service-detail-content > .body {
+            max-width: 520px;
+            margin-bottom: 30px;
+        }
+
+        .feature-list {
+            list-style: none;
+            border-top: 1px solid var(--line);
+            margin-bottom: 30px;
+        }
+
+        .feature-list li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 13px 0;
+            border-bottom: 1px solid var(--line);
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .feature-list svg {
+            width: 16px;
+            height: 16px;
+            color: var(--gold);
+        }
+
+        /* =========================================================
+           GALLERY PAGE
+        ========================================================= */
+
+        .gallery-controls {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 40px;
+        }
+
+        .filter-button {
+            padding: 9px 16px;
+            border: 1px solid var(--line);
+            background: transparent;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--muted);
+        }
+
+        .filter-button.active,
+        .filter-button:hover {
+            border-color: var(--black);
+            color: var(--black);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+        }
+
+        .gallery-item {
+            aspect-ratio: 1 / .82;
+            overflow: hidden;
+            background: #dedcd5;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform .5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.035);
+        }
+
+        /* =========================================================
+           QUOTE MODAL
+        ========================================================= */
+
+        .modal {
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            background: rgba(0,0,0,.62);
+            opacity: 0;
+            visibility: hidden;
+            transition:
+                opacity .25s ease,
+                visibility .25s ease;
+        }
+
+        .modal.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-panel {
+            width: min(680px, 100%);
+            max-height: calc(100vh - 48px);
+            overflow-y: auto;
+            background: var(--paper);
+            padding: 42px;
+            position: relative;
+            transform: translateY(15px);
+            transition: transform .3s ease;
+        }
+
+        .modal.open .modal-panel {
+            transform: translateY(0);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 18px;
+            right: 18px;
+            width: 36px;
+            height: 36px;
+            border: 1px solid var(--line);
+            background: transparent;
+        }
+
+        .modal-header {
+            margin-bottom: 30px;
+        }
+
+        .modal-header .eyebrow {
+            margin-bottom: 14px;
+        }
+
+        .modal-header h2 {
+            font-family: var(--serif);
+            font-size: 38px;
+            line-height: 1.05;
+            margin-bottom: 10px;
+        }
+
+        .modal-header p {
+            font-size: 14px;
+            color: var(--muted);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .field.full {
+            grid-column: 1 / -1;
+        }
+
+        .field label {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+        }
+
+        .field input,
+        .field select,
+        .field textarea {
+            width: 100%;
+            border: 1px solid var(--line);
+            background: white;
+            padding: 13px 14px;
+            outline: none;
+            color: var(--black);
+            border-radius: 0;
+            transition: border-color .2s ease;
+        }
+
+        .field textarea {
+            min-height: 110px;
+            resize: vertical;
+        }
+
+        .field input:focus,
+        .field select:focus,
+        .field textarea:focus {
+            border-color: var(--black);
+        }
+
+        .form-submit {
+            width: 100%;
+            margin-top: 22px;
+        }
+
+        .form-note {
+            margin-top: 12px;
+            text-align: center;
+            font-size: 11px;
+            color: var(--soft);
+        }
+
+        /* =========================================================
+           FOOTER
+        ========================================================= */
+
+        .footer {
+            background: var(--dark);
+            color: white;
+            padding: 72px 0 24px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr;
+            gap: 80px;
+            padding-bottom: 60px;
+        }
+
+        .footer .logo {
+            display: inline-block;
+            margin-bottom: 16px;
+        }
+
+        .footer-description {
+            max-width: 330px;
+            font-size: 13px;
+            line-height: 1.8;
+            color: rgba(255,255,255,.52);
+        }
+
+        .footer h4 {
+            font-size: 11px;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,.42);
+            margin-bottom: 18px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            font-size: 14px;
+            color: rgba(255,255,255,.76);
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-contact {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .footer-contact a,
+        .footer-contact span {
+            font-size: 14px;
+            color: rgba(255,255,255,.72);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            padding-top: 22px;
+            border-top: 1px solid rgba(255,255,255,.1);
+            font-size: 11px;
+            color: rgba(255,255,255,.35);
+        }
+
+        /* =========================================================
+           FLOATING CONTACT
+        ========================================================= */
+
+        .contact-float {
+            position: fixed;
+            right: 24px;
+            bottom: 24px;
+            z-index: 900;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 13px 17px;
+            background: var(--black);
+            color: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,.18);
+            font-size: 12px;
+            font-weight: 700;
+            border-radius: 2px;
+            transition:
+                transform .2s ease,
+                background .2s ease;
+        }
+
+        .contact-float:hover {
+            transform: translateY(-3px);
+            background: #292929;
+        }
+
+        .contact-float svg {
+            width: 17px;
+            height: 17px;
+        }
+
+        /* =========================================================
+           REVEAL
+        ========================================================= */
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition:
+                opacity .7s ease,
+                transform .7s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media (max-width: 1000px) {
+            .desktop-nav {
+                gap: 20px;
+            }
+
+            .hero-grid {
+                gap: 50px;
+            }
+
+            .statement {
+                gap: 50px;
+            }
+
+            .process-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .process-step:nth-child(2) {
+                border-right: 0;
+            }
+
+            .process-step:nth-child(3),
+            .process-step:nth-child(4) {
+                border-top: 1px solid rgba(255,255,255,.15);
+            }
+
+            .process-step:nth-child(3) {
+                padding-left: 0;
+            }
+        }
+
+        @media (max-width: 800px) {
+            .container {
+                width: min(var(--container), calc(100% - 36px));
+            }
+
+            .desktop-nav {
+                display: none;
+            }
+
+            .menu-button {
+                display: flex;
+            }
+
+            .hero {
+                padding: 50px 0 80px;
+            }
+
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 45px;
+            }
+
+            .hero-copy {
+                padding-bottom: 0;
+            }
+
+            .hero-number {
+                right: 12px;
+                bottom: -20px;
+            }
+
+            .trust-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .trust-item,
+            .trust-item:first-child {
+                padding: 22px 18px;
+            }
+
+            .trust-item:nth-child(2) {
+                border-right: 0;
+            }
+
+            .trust-item:nth-child(3),
+            .trust-item:nth-child(4) {
+                border-top: 1px solid var(--line);
+            }
+
+            .services-intro {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .service-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .statement {
+                grid-template-columns: 1fr;
+                gap: 35px;
+            }
+
+            .work-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .work-item:nth-child(n) {
+                grid-column: span 1;
+                aspect-ratio: 1 / .9;
+            }
+
+            .cta-box {
+                grid-template-columns: 1fr;
+                gap: 32px;
+                align-items: start;
+            }
+
+            .service-detail {
+                grid-template-columns: 1fr;
+                gap: 42px;
+                padding: 70px 0;
+            }
+
+            .service-detail.reverse .service-detail-image {
+                order: 0;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 50px;
+            }
+
+            .footer-grid > div:first-child {
+                grid-column: 1 / -1;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .section {
+                padding: 82px 0;
+            }
+
+            .display {
+                font-size: clamp(44px, 13vw, 64px);
+            }
+
+            .hero-actions {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .button {
+                width: 100%;
+            }
+
+            .hero-number {
+                width: 96px;
+                height: 96px;
+            }
+
+            .hero-number strong {
+                font-size: 31px;
+            }
+
+            .trust-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .trust-item,
+            .trust-item:first-child {
+                border-right: 0;
+                border-bottom: 1px solid var(--line);
+                padding: 20px 0;
+            }
+
+            .trust-item:last-child {
+                border-bottom: 0;
+            }
+
+            .trust-item:nth-child(3),
+            .trust-item:nth-child(4) {
+                border-top: 0;
+            }
+
+            .process-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .process-step,
+            .process-step:nth-child(3),
+            .process-step:nth-child(4) {
+                border-right: 0;
+                border-top: 1px solid rgba(255,255,255,.15);
+                padding-left: 0;
+            }
+
+            .process-step:first-child {
+                border-top: 0;
+            }
+
+            .work-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .work-item:nth-child(n) {
+                grid-column: span 1;
+                aspect-ratio: 1 / .8;
+            }
+
+            .work-header {
+                align-items: start;
+                flex-direction: column;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .field.full {
+                grid-column: auto;
+            }
+
+            .modal-panel {
+                padding: 32px 22px;
+            }
+
+            .modal-header h2 {
+                font-size: 32px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 38px;
+            }
+
+            .footer-grid > div:first-child {
+                grid-column: auto;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+            }
+
+            .contact-float {
+                right: 16px;
+                bottom: 16px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: .01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: .01ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================================================
+         HEADER
+    ========================================================== -->
+
+    <header class="header" id="header">
+        <div class="container">
+            <div class="header-inner">
+
+                <a href="#home" class="logo" data-page="home">
+                    Proton<span>NG</span>
+                </a>
+
+                <nav class="desktop-nav">
+                    <a href="#home" data-page="home" class="active">Home</a>
+                    <a href="#services" data-page="services">Services</a>
+                    <a href="#gallery" data-page="gallery">Our work</a>
+
+                    <button class="header-cta" type="button" onclick="openQuoteModal()">
+                        Request a consultation
+                    </button>
+                </nav>
+
+                <button
+                    class="menu-button"
+                    id="menuButton"
+                    type="button"
+                    aria-label="Open navigation"
+                    aria-expanded="false"
+                >
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M4 7h16M4 12h16M4 17h16"/>
+                    </svg>
+                </button>
+
+            </div>
+        </div>
+    </header>
+
+    <!-- =========================================================
+         MOBILE MENU
+    ========================================================== -->
+
+    <aside class="mobile-menu" id="mobileMenu" aria-hidden="true">
+
+        <button
+            class="mobile-close"
+            type="button"
+            onclick="closeMenu()"
+            aria-label="Close navigation"
+        >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M5 5l14 14M19 5L5 19"/>
+            </svg>
+        </button>
+
+        <nav class="mobile-links">
+            <a href="#home" data-page="home">Home</a>
+            <a href="#services" data-page="services">Services</a>
+            <a href="#gallery" data-page="gallery">Our work</a>
+
+            <button
+                type="button"
+                class="mobile-cta"
+                onclick="closeMenu(); openQuoteModal();"
+            >
+                Request a consultation
+            </button>
+        </nav>
+
+    </aside>
+
+    <!-- =========================================================
+         HOME
+    ========================================================== -->
+
+    <main class="page active" id="page-home">
+
+        <!-- HERO -->
+
+        <section class="hero">
+            <div class="container">
+
+                <div class="hero-grid">
+
+                    <div class="hero-copy reveal">
+
+                        <span class="eyebrow">
+                            Solar energy systems
+                        </span>
+
+                        <h1 class="display">
+                            Reliable power,
+                            <em>properly engineered.</em>
+                        </h1>
+
+                        <p class="body-large">
+                            Solar installation and energy storage systems for
+                            homes, businesses and organisations across Nigeria.
+                        </p>
+
+                        <div class="hero-actions">
+
+                            <button
+                                type="button"
+                                class="button button-primary"
+                                onclick="openQuoteModal()"
+                            >
+                                Request a consultation
+                                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M5 12h14M13 6l6 6-6 6"/>
+                                </svg>
+                            </button>
+
+                            <a
+                                href="#gallery"
+                                class="button button-outline"
+                                data-page="gallery"
+                            >
+                                View our work
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                    <div class="hero-visual reveal">
+
+                        <div class="hero-image">
+                            <img
+                                src="https://i.ibb.co/9kztWGt4/IMG-20260502-WA0012.jpg"
+                                alt="Solar installation completed by ProtonNG"
+                            />
+
+                            <span class="hero-caption">
+                                ProtonNG installation
+                            </span>
+                        </div>
+
+                        <div class="hero-number">
+                            <strong>01</strong>
+                            <span>Designed<br>for your needs</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- TRUST -->
+
+        <section class="trust-strip">
+            <div class="container">
+
+                <div class="trust-grid">
+
+                    <div class="trust-item">
+                        <div class="trust-mark">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M12 3l7 3v5c0 4.5-3 7.8-7 10-4-2.2-7-5.5-7-10V6l7-3z"/>
+                                <path d="M8.5 12l2.2 2.2 4.8-5"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <strong>Professional installation</strong>
+                            <span>Careful, clean workmanship</span>
+                        </div>
+                    </div>
+
+                    <div class="trust-item">
+                        <div class="trust-mark">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M13 2L5 13h6l-1 9 8-11h-6l1-9z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <strong>Quality components</strong>
+                            <span>Systems built for reliability</span>
+                        </div>
+                    </div>
+
+                    <div class="trust-item">
+                        <div class="trust-mark">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <circle cx="12" cy="12" r="8"/>
+                                <path d="M4 12h16M12 4c2 2.3 3 4.9 3 8s-1 5.7-3 8c-2-2.3-3-4.9-3-8s1-5.7 3-8z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <strong>Across Nigeria</strong>
+                            <span>Residential and commercial</span>
+                        </div>
+                    </div>
+
+                    <div class="trust-item">
+                        <div class="trust-mark">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M4 19V5M4 19h16"/>
+                                <path d="M7 15l4-4 3 2 5-6"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <strong>Long-term support</strong>
+                            <span>Maintenance when you need it</span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SERVICES -->
+
+        <section class="section">
+
+            <div class="container">
+
+                <div class="services-intro reveal">
+
+                    <div>
+                        <span class="eyebrow">What we do</span>
+
+                        <h2 class="heading">
+                            Energy systems built around how you live and work.
+                        </h2>
+                    </div>
+
+                    <p class="body">
+                        Every property has different loads, priorities and
+                        operating requirements. ProtonNG designs and installs
+                        systems around the actual need rather than a one-size-fits-all package.
+                    </p>
+
+                </div>
+
+                <div class="service-grid">
+
+                    <article class="service-card reveal">
+
+                        <div class="service-image">
+                            <img
+                                src="https://i.ibb.co/4ggD1sfh/IMG-20260424-WA0016.jpg"
+                                alt="Residential solar installation"
+                                loading="lazy"
+                            />
+                        </div>
+
+                        <div class="service-content">
+
+                            <span class="service-index">01 / RESIDENTIAL</span>
+
+                            <h3>Home energy systems</h3>
+
+                            <p class="body">
+                                Solar and battery systems designed around the
+                                appliances, usage and power requirements of your home.
+                            </p>
+
+                            <a
+                                href="#services"
+                                class="service-link"
+                                data-page="services"
+                            >
+                                Explore service
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M5 12h14M13 6l6 6-6 6"/>
+                                </svg>
+                            </a>
+
+                        </div>
+
+                    </article>
+
+                    <article class="service-card reveal">
+
+                        <div class="service-image">
+                            <img
+                                src="https://i.ibb.co/XZqN6Km5/IMG-20260424-WA0015.jpg"
+                                alt="Commercial solar installation"
+                                loading="lazy"
+                            />
+                        </div>
+
+                        <div class="service-content">
+
+                            <span class="service-index">02 / COMMERCIAL</span>
+
+                            <h3>Business energy systems</h3>
+
+                            <p class="body">
+                                Scalable energy systems for offices, shops,
+                                organisations and other commercial properties.
+                            </p>
+
+                            <a
+                                href="#services"
+                                class="service-link"
+                                data-page="services"
+                            >
+                                Explore service
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M5 12h14M13 6l6 6-6 6"/>
+                                </svg>
+                            </a>
+
+                        </div>
+
+                    </article>
+
+                    <article class="service-card reveal">
+
+                        <div class="service-image">
+                            <img
+                                src="https://i.ibb.co/qVMyBZP/IMG-20260424-WA0017.jpg"
+                                alt="Solar maintenance and battery system"
+                                loading="lazy"
+                            />
+                        </div>
+
+                        <div class="service-content">
+
+                            <span class="service-index">03 / SUPPORT</span>
+
+                            <h3>Maintenance & support</h3>
+
+                            <p class="body">
+                                Ongoing maintenance, system checks and support
+                                designed to keep installed systems performing reliably.
+                            </p>
+
+                            <a
+                                href="#services"
+                                class="service-link"
+                                data-page="services"
+                            >
+                                Explore service
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M5 12h14M13 6l6 6-6 6"/>
+                                </svg>
+                            </a>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- POSITIONING -->
+
+        <section class="section">
+
+            <div class="container">
+
+                <div class="statement reveal">
+
+                    <div>
+                        <span class="eyebrow">The ProtonNG approach</span>
+                    </div>
+
+                    <div class="statement-copy">
+
+                        <p class="statement-large">
+                            Good solar installation is more than putting
+                            panels on a roof.
+                        </p>
+
+                        <p class="body">
+                            The system has to make sense for the property,
+                            the equipment it powers and the way the customer
+                            actually uses electricity.
+                        </p>
+
+                        <div class="principles">
+
+                            <div class="principle">
+                                <span class="principle-number">01</span>
+                                <div>
+                                    <h3>Understand the requirement</h3>
+                                    <p>
+                                        Start with the property's actual
+                                        energy needs before recommending a system.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="principle">
+                                <span class="principle-number">02</span>
+                                <div>
+                                    <h3>Design the right system</h3>
+                                    <p>
+                                        Match generation, storage and load
+                                        requirements to the intended use.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="principle">
+                                <span class="principle-number">03</span>
+                                <div>
+                                    <h3>Install with discipline</h3>
+                                    <p>
+                                        Professional installation and careful
+                                        attention to the finished system.
+                                    </p>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- PROCESS -->
+
+        <section class="section process-section">
+
+            <div class="container">
+
+                <div class="section-heading reveal">
+
+                    <span class="eyebrow">How it works</span>
+
+                    <h2 class="heading">
+                        From first conversation to working system.
+                    </h2>
+
+                    <p class="body">
+                        A straightforward process keeps the project clear
+                        from the first enquiry through installation.
+                    </p>
+
+                </div>
+
+                <div class="process-grid">
+
+                    <div class="process-step reveal">
+                        <div class="process-step-number">01</div>
+                        <h3>Tell us what you need</h3>
+                        <p>
+                            Share your property, requirements and current
+                            power situation.
+                        </p>
+                    </div>
+
+                    <div class="process-step reveal">
+                        <div class="process-step-number">02</div>
+                        <h3>System assessment</h3>
+                        <p>
+                            We discuss the requirements and determine an
+                            appropriate system direction.
+                        </p>
+                    </div>
+
+                    <div class="process-step reveal">
+                        <div class="process-step-number">03</div>
+                        <h3>Proposal</h3>
+                        <p>
+                            You receive a clear recommendation based on
+                            the project's requirements.
+                        </p>
+                    </div>
+
+                    <div class="process-step reveal">
+                        <div class="process-step-number">04</div>
+                        <h3>Installation</h3>
+                        <p>
+                            Once approved, the system moves from plan to
+                            professional installation.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- WORK -->
+
+        <section class="section">
+
+            <div class="container">
+
+                <div class="work-header reveal">
+
+                    <div class="section-heading">
+
+                        <span class="eyebrow">Selected work</span>
+
+                        <h2 class="heading">
+                            Systems we've installed.
+                        </h2>
+
+                        <p class="body">
+                            A selection of residential and commercial
+                            installations.
+                        </p>
+
+                    </div>
+
+                    <a
+                        href="#gallery"
+                        class="view-all"
+                        data-page="gallery"
+                    >
+                        View all projects
+
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M5 12h14M13 6l6 6-6 6"/>
+                        </svg>
+                    </a>
+
+                </div>
+
+                <div class="work-grid">
+
+                    <div class="work-item reveal">
+                        <img
+                            src="https://i.ibb.co/9kztWGt4/IMG-20260502-WA0012.jpg"
+                            alt="ProtonNG solar installation"
+                            loading="lazy"
+                        />
+                        <div class="work-overlay">
+                            <span>Commercial</span>
+                            <strong>Solar installation</strong>
+                        </div>
+                    </div>
+
+                    <div class="work-item reveal">
+                        <img
+                            src="https://i.ibb.co/zTjsysb6/IMG-20260424-WA0018.jpg"
+                            alt="Residential solar installation"
+                            loading="lazy"
+                        />
+                        <div class="work-overlay">
+                            <span>Residential</span>
+                            <strong>Home energy system</strong>
+                        </div>
+                    </div>
+
+                    <div class="work-item reveal">
+                        <img
+                            src="https://i.ibb.co/k6PGvx3K/IMG-20260424-WA0020.jpg"
+                            alt="Commercial solar installation"
+                            loading="lazy"
+                        />
+                        <div class="work-overlay">
+                            <span>Commercial</span>
+                            <strong>Energy system</strong>
+                        </div>
+                    </div>
+
+                    <div class="work-item reveal">
+                        <img
+                            src="https://i.ibb.co/C51ZBp74/IMG-20260424-WA0023.jpg"
+                            alt="Residential solar installation"
+                            loading="lazy"
+                        />
+                        <div class="work-overlay">
+                            <span>Residential</span>
+                            <strong>Solar installation</strong>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- CTA -->
+
+        <section class="section cta-section">
+
+            <div class="container">
+
+                <div class="cta-box reveal">
+
+                    <div>
+                        <span class="eyebrow">Start a project</span>
+
+                        <h2 class="heading">
+                            Let's work out what your property actually needs.
+                        </h2>
+
+                        <p class="body">
+                            Tell us a little about your project. We'll take
+                            the conversation from there.
+                        </p>
+                    </div>
+
+                    <button
+                        type="button"
+                        class="button button-primary"
+                        onclick="openQuoteModal()"
+                    >
+                        Request a consultation
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M5 12h14M13 6l6 6-6 6"/>
+                        </svg>
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- =========================================================
+         SERVICES PAGE
+    ========================================================== -->
+
+    <main class="page" id="page-services">
+
+        <section class="inner-hero">
+
+            <div class="container">
+
+                <div class="inner-hero-content reveal">
+
+                    <span class="eyebrow">Services</span>
+
+                    <h1 class="heading">
+                        Energy systems designed around the property.
+                    </h1>
+
+                    <p class="body-large">
+                        From home backup systems to larger commercial
+                        installations, ProtonNG works around the actual
+                        requirements of each project.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <section>
+
+            <div class="container">
+
+                <!-- RESIDENTIAL -->
+
+                <article class="service-detail reveal">
+
+                    <div class="service-detail-image">
+                        <img
+                            src="https://i.ibb.co/4ggD1sfh/IMG-20260424-WA0016.jpg"
+                            alt="Residential solar installation"
+                        />
+                    </div>
+
+                    <div class="service-detail-content">
+
+                        <span class="eyebrow">01 / Residential</span>
+
+                        <h2>Solar power for the way your home works.</h2>
+
+                        <p class="body">
+                            Residential systems designed around your home's
+                            electricity usage, backup requirements and
+                            priorities.
+                        </p>
+
+                        <ul class="feature-list">
+                            <li>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M5 12l4 4L19 6"/>
+                                </svg>
+                                System requirement assessment
+                            </li>
+                            <li>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M5 12l4 4L19 6"/>
+                                </svg>
+                                Solar panel installation
+                            </li>
+                            <li>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M5 12l4 4L19 6"/>
+                                </svg>
+                                Battery storage
+                            </li>
+                            <li>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M5 12l4 4L19 6"/>
+                                </svg>
+                                Complete system installation
+                            </li>
+                        </ul>
+
+                        <button
+                            class="button button-primary"
+                            onclick="openQuoteModal('Residential')"
+                        >
+                            Discuss your home project
+                        </button>
+
+                    </div>
+
+                </article>
+
+                <!-- COMMERCIAL -->
+
+                <article class="service-detail reverse reveal">
+
+                    <div class="service-detail-image">
+                        <img
+                            src="https://i.ibb.co/XZqN6Km5/IMG-20260424-WA0015.jpg"
+                            alt="Commercial solar installation"
+                        />
+                    </div>
+
+                    <div class="service-detail-content">
+
+                        <span class="eyebrow">02 / Commercial</span>
+
+                        <h2>Energy infrastructure for businesses.</h2>
+
+                        <p class="body">
+                            Commercial systems designed to support operations,
+                            reduce dependence on conventional power and
+                            improve energy reliability.
+                        </p>
+
+                        <ul class="feature-list">
+                            <li>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M5 12l4 4L19 6"/>
+                                </svg>
+                                Commercial system assessment
+                            </li>
+                            <li>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M5 12l4 4L19 6"/>
+                                </svg>
+                                Scalable solar generation
+                            </li>
+                            <li>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M5 12l4 4L19 6"/>
+                                </svg>
+                                Battery storage systems
+                            </li>
+                            <li>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M5 12l4 4L19 6"/>
+                                </svg>
+                                Load management
+                            </li>
+                        </ul>
+
+                        <button
+                            class="button button-primary"
+                            onclick="openQuoteModal('Commercial')"
+                        >
+                            Discuss your business project
+                        </button>
+
+                    </div>
+
+                </article>
+
+                <!-- MAINTENANCE -->
+
+                <article class="service-detail reveal">
+
+                    <div class="service-detail-image">
+                        <img
+                            src="https://i.ibb.co/qVMyBZP/IMG-20260424-WA0017.jpg"
+                            alt="Solar maintenance"
+                        />
+                    </div>
+
+                    <div class="service-detail-content">
+
+                        <span class="eyebrow">03 / Maintenance</span>
+
+                        <h2>Keep your system performing.</h2>
+
+                        <p class="body">
+                            Ongoing system care helps identify issues early
+                            and keeps installed equipment operating as intended.
+                        </p>
+
+                        <ul class="feature-list">
+                            <li>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M5 12l4 4L19 6"/>
+                                </svg>
+                                System inspections
+                            </li>
+                            <li>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M5 12l4 4L19 6"/>
+                                </svg>
+                                Battery checks
+                            </li>
+                            <li>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M5 12l4 4L19 6"/>
+                                </svg>
+                                Fault diagnosis
+                            </li>
+                            <li>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M5 12l4 4L19 6"/>
+                                </svg>
+                                System support
+                            </li>
+                        </ul>
+
+                        <button
+                            class="button button-primary"
+                            onclick="openQuoteModal('Maintenance')"
+                        >
+                            Discuss maintenance
+                        </button>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+        <section class="section cta-section">
+
+            <div class="container">
+
+                <div class="cta-box reveal">
+
+                    <div>
+                        <span class="eyebrow">Need a recommendation?</span>
+
+                        <h2 class="heading">
+                            Start with a conversation.
+                        </h2>
+
+                        <p class="body">
+                            You don't need to know the exact system before
+                            contacting us.
+                        </p>
+                    </div>
+
+                    <button
+                        class="button button-primary"
+                        onclick="openQuoteModal()"
+                    >
+                        Request a consultation
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- =========================================================
+         GALLERY PAGE
+    ========================================================== -->
+
+    <main class="page" id="page-gallery">
+
+        <section class="inner-hero">
+
+            <div class="container">
+
+                <div class="inner-hero-content reveal">
+
+                    <span class="eyebrow">Our work</span>
+
+                    <h1 class="heading">
+                        Installation work, not stock imagery.
+                    </h1>
+
+                    <p class="body-large">
+                        A selection of residential and commercial projects.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <section class="section" style="padding-top:70px;">
+
+            <div class="container">
+
+                <div class="gallery-controls reveal">
+
+                    <button class="filter-button active" data-filter="all">
+                        All
+                    </button>
+
+                    <button class="filter-button" data-filter="residential">
+                        Residential
+                    </button>
+
+                    <button class="filter-button" data-filter="commercial">
+                        Commercial
+                    </button>
+
+                </div>
+
+                <div class="gallery-grid">
+
+                    <div class="gallery-item reveal" data-category="commercial">
+                        <img
+                            src="https://i.ibb.co/9kztWGt4/IMG-20260502-WA0012.jpg"
+                            alt="Commercial solar installation"
+                        />
+                    </div>
+
+                    <div class="gallery-item reveal" data-category="residential">
+                        <img
+                            src="https://i.ibb.co/zTjsysb6/IMG-20260424-WA0018.jpg"
+                            alt="Residential solar installation"
+                            loading="lazy"
+                        />
+                    </div>
+
+                    <div class="gallery-item reveal" data-category="residential">
+                        <img
+                            src="https://i.ibb.co/mrK8P33m/IMG-20260424-WA0019.jpg"
+                            alt="Residential solar installation"
+                            loading="lazy"
+                        />
+                    </div>
+
+                    <div class="gallery-item reveal" data-category="commercial">
+                        <img
+                            src="https://i.ibb.co/k6PGvx3K/IMG-20260424-WA0020.jpg"
+                            alt="Commercial solar installation"
+                            loading="lazy"
+                        />
+                    </div>
+
+                    <div class="gallery-item reveal" data-category="commercial">
+                        <img
+                            src="https://i.ibb.co/Y7RwhDYd/IMG-20260424-WA0021.jpg"
+                            alt="Commercial solar installation"
+                            loading="lazy"
+                        />
+                    </div>
+
+                    <div class="gallery-item reveal" data-category="commercial">
+                        <img
+                            src="https://i.ibb.co/1J0z95Hp/IMG-20260424-WA0022.jpg"
+                            alt="Commercial solar installation"
+                            loading="lazy"
+                        />
+                    </div>
+
+                    <div class="gallery-item reveal" data-category="residential">
+                        <img
+                            src="https://i.ibb.co/C51ZBp74/IMG-20260424-WA0023.jpg"
+                            alt="Residential solar installation"
+                            loading="lazy"
+                        />
+                    </div>
+
+                    <div class="gallery-item reveal" data-category="residential">
+                        <img
+                            src="https://i.ibb.co/HTKQbtrk/IMG-20260424-WA0014.jpg"
+                            alt="Residential solar installation"
+                            loading="lazy"
+                        />
+                    </div>
+
+                    <div class="gallery-item reveal" data-category="residential">
+                        <img
+                            src="https://i.ibb.co/XZqN6Km5/IMG-20260424-WA0015.jpg"
+                            alt="Residential solar installation"
+                            loading="lazy"
+                        />
+                    </div>
+
+                    <div class="gallery-item reveal" data-category="residential">
+                        <img
+                            src="https://i.ibb.co/4ggD1sfh/IMG-20260424-WA0016.jpg"
+                            alt="Residential solar installation"
+                            loading="lazy"
+                        />
+                    </div>
+
+                    <div class="gallery-item reveal" data-category="residential">
+                        <img
+                            src="https://i.ibb.co/qVMyBZP/IMG-20260424-WA0017.jpg"
+                            alt="Residential solar installation"
+                            loading="lazy"
+                        />
+                    </div>
+
+                    <div class="gallery-item reveal" data-category="commercial">
+                        <img
+                            src="https://i.ibb.co/mrXT5XXT/IMG-20260425-WA0027.jpg"
+                            alt="Commercial solar installation"
+                            loading="lazy"
+                        />
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <section class="section cta-section">
+
+            <div class="container">
+
+                <div class="cta-box reveal">
+
+                    <div>
+                        <span class="eyebrow">Your project</span>
+
+                        <h2 class="heading">
+                            Have a property in mind?
+                        </h2>
+
+                        <p class="body">
+                            Tell us what you're trying to power and we'll
+                            take the conversation from there.
+                        </p>
+                    </div>
+
+                    <button
+                        class="button button-primary"
+                        onclick="openQuoteModal()"
+                    >
+                        Request a consultation
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- =========================================================
+         FOOTER
+    ========================================================== -->
+
+    <footer class="footer">
+
+        <div class="container">
+
+            <div class="footer-grid">
+
+                <div>
+
+                    <a href="#home" class="logo" data-page="home">
+                        Proton<span>NG</span>
+                    </a>
+
+                    <p class="footer-description">
+                        Solar installation and energy systems for homes
+                        and businesses across Nigeria.
+                    </p>
+
+                </div>
+
+                <div>
+
+                    <h4>Explore</h4>
+
+                    <ul class="footer-links">
+                        <li><a href="#home" data-page="home">Home</a></li>
+                        <li><a href="#services" data-page="services">Services</a></li>
+                        <li><a href="#gallery" data-page="gallery">Our work</a></li>
+                    </ul>
+
+                </div>
+
+                <div>
+
+                    <h4>Contact</h4>
+
+                    <div class="footer-contact">
+                        <a href="tel:+2347012212500">
+                            +234 701 221 2500
+                        </a>
+
+                        <a href="https://wa.me/2347012212500" target="_blank" rel="noopener">
+                            WhatsApp
+                        </a>
+
+                        <span>
+                            Lagos · Abuja · Port Harcourt
+                        </span>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="footer-bottom">
+                <span>
+                    © 2026 ProtonNG. All rights reserved.
+                </span>
+
+                <span>
+                    Solar energy systems
+                </span>
+            </div>
+
+        </div>
+
+    </footer>
+
+    <!-- =========================================================
+         FLOATING WHATSAPP / CONTACT
+    ========================================================== -->
+
+    <button
+        class="contact-float"
+        type="button"
+        onclick="openQuoteModal()"
+        aria-label="Request a consultation"
+    >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+            <path d="M20 4H4a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h4l4 3 4-3h4a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"/>
+            <path d="M7 9h10M7 13h7"/>
+        </svg>
+
+        Start a project
+    </button>
+
+    <!-- =========================================================
+         CONSULTATION MODAL
+    ========================================================== -->
+
+    <div
+        class="modal"
+        id="quoteModal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="quoteTitle"
+    >
+
+        <div class="modal-panel">
+
+            <button
+                class="modal-close"
+                type="button"
+                onclick="closeQuoteModal()"
+                aria-label="Close consultation form"
+            >
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M5 5l14 14M19 5L5 19"/>
+                </svg>
+            </button>
+
+            <div class="modal-header">
+
+                <span class="eyebrow">Project enquiry</span>
+
+                <h2 id="quoteTitle">
+                    Tell us about your project.
+                </h2>
+
+                <p>
+                    We'll prepare your enquiry and continue the conversation
+                    with you on WhatsApp.
+                </p>
+
+            </div>
+
+            <form id="quoteForm">
+
+                <div class="form-grid">
+
+                    <div class="field">
+                        <label for="name">Name</label>
+                        <input
+                            id="name"
+                            name="name"
+                            type="text"
+                            placeholder="Your name"
+                            required
+                        />
+                    </div>
+
+                    <div class="field">
+                        <label for="phone">Phone</label>
+                        <input
+                            id="phone"
+                            name="phone"
+                            type="tel"
+                            placeholder="Your phone number"
+                            required
+                        />
+                    </div>
+
+                    <div class="field">
+                        <label for="project">Project type</label>
+
+                        <select id="project" name="project" required>
+                            <option value="">Select one</option>
+                            <option value="Residential">Residential</option>
+                            <option value="Commercial">Commercial</option>
+                            <option value="Maintenance">Maintenance</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label for="location">Location</label>
+
+                        <input
+                            id="location"
+                            name="location"
+                            type="text"
+                            placeholder="City / State"
+                            required
+                        />
+                    </div>
+
+                    <div class="field full">
+
+                        <label for="details">
+                            What are you trying to power?
+                        </label>
+
+                        <textarea
+                            id="details"
+                            name="details"
+                            placeholder="For example: a 3-bedroom home, office, shop, hotel, etc."
+                        ></textarea>
+
+                    </div>
+
+                </div>
+
+                <button
+                    type="submit"
+                    class="button button-primary form-submit"
+                >
+                    Continue to WhatsApp
+
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M5 12h14M13 6l6 6-6 6"/>
+                    </svg>
+
+                </button>
+
+                <p class="form-note">
+                    Your information is used to prepare the enquiry message.
+                </p>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <!-- =========================================================
+         JAVASCRIPT
+    ========================================================== -->
+
+    <script>
+
+        const WA_NUMBER = "2347012212500";
+
+        const pages = {
+            home: document.getElementById("page-home"),
+            services: document.getElementById("page-services"),
+            gallery: document.getElementById("page-gallery")
+        };
+
+        const navLinks = document.querySelectorAll("[data-page]");
+        const header = document.getElementById("header");
+
+        /* =====================================================
+           NAVIGATION
+        ===================================================== */
+
+        function showPage(page, updateHistory = true) {
+
+            if (!pages[page]) {
+                page = "home";
+            }
+
+            Object.values(pages).forEach((element) => {
+                element.classList.remove("active");
+            });
+
+            pages[page].classList.add("active");
+
+            document.querySelectorAll("[data-page]").forEach((link) => {
+                link.classList.toggle(
+                    "active",
+                    link.dataset.page === page
+                );
+            });
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+            if (updateHistory) {
+                history.pushState(
+                    { page },
+                    "",
+                    "#" + page
+                );
+            }
+
+            setTimeout(() => {
+                observeReveals();
+            }, 100);
+        }
+
+        function getCurrentPage() {
+
+            const hash = window.location.hash.replace("#", "");
+
+            return pages[hash] ? hash : "home";
+        }
+
+        navLinks.forEach((link) => {
+
+            link.addEventListener("click", (event) => {
+
+                event.preventDefault();
+
+                const page = link.dataset.page;
+
+                if (page) {
+                    showPage(page);
+                }
+
+                closeMenu();
+            });
+
+        });
+
+        window.addEventListener("popstate", () => {
+            showPage(getCurrentPage(), false);
+        });
+
+        window.addEventListener("load", () => {
+            showPage(getCurrentPage(), false);
+        });
+
+        /* =====================================================
+           HEADER
+        ===================================================== */
+
+        window.addEventListener("scroll", () => {
+
+            header.classList.toggle(
+                "scrolled",
+                window.scrollY > 40
+            );
+
+        }, { passive: true });
+
+        /* =====================================================
+           MOBILE MENU
+        ===================================================== */
+
+        const mobileMenu = document.getElementById("mobileMenu");
+        const menuButton = document.getElementById("menuButton");
+
+        function openMenu() {
+
+            mobileMenu.classList.add("open");
+            mobileMenu.setAttribute("aria-hidden", "false");
+            menuButton.setAttribute("aria-expanded", "true");
+
+            document.body.classList.add("modal-open");
+        }
+
+        function closeMenu() {
+
+            mobileMenu.classList.remove("open");
+            mobileMenu.setAttribute("aria-hidden", "true");
+            menuButton.setAttribute("aria-expanded", "false");
+
+            if (!document.getElementById("quoteModal").classList.contains("open")) {
+                document.body.classList.remove("modal-open");
+            }
+        }
+
+        menuButton.addEventListener("click", openMenu);
+
+        document.addEventListener("keydown", (event) => {
+
+            if (event.key === "Escape") {
+
+                closeMenu();
+                closeQuoteModal();
+
+            }
+
+        });
+
+        /* =====================================================
+           QUOTE MODAL
+        ===================================================== */
+
+        const quoteModal = document.getElementById("quoteModal");
+        const quoteForm = document.getElementById("quoteForm");
+
+        function openQuoteModal(projectType = "") {
+
+            quoteModal.classList.add("open");
+            document.body.classList.add("modal-open");
+
+            if (projectType) {
+                document.getElementById("project").value = projectType;
+            }
+
+            setTimeout(() => {
+                document.getElementById("name").focus();
+            }, 100);
+
+        }
+
+        function closeQuoteModal() {
+
+            quoteModal.classList.remove("open");
+
+            if (!mobileMenu.classList.contains("open")) {
+                document.body.classList.remove("modal-open");
+            }
+
+        }
+
+        quoteModal.addEventListener("click", (event) => {
+
+            if (event.target === quoteModal) {
+                closeQuoteModal();
+            }
+
+        });
+
+        quoteForm.addEventListener("submit", (event) => {
+
+            event.preventDefault();
+
+            const formData = new FormData(quoteForm);
+
+            const name = formData.get("name");
+            const phone = formData.get("phone");
+            const project = formData.get("project");
+            const location = formData.get("location");
+            const details = formData.get("details") || "Not specified";
+
+            const message = [
+                "PROTONNG PROJECT ENQUIRY",
+                "",
+                `Name: ${name}`,
+                `Phone: ${phone}`,
+                `Project: ${project}`,
+                `Location: ${location}`,
+                "",
+                "Power requirements:",
+                details
+            ].join("\n");
+
+            const whatsappURL =
+                `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`;
+
+            window.open(
+                whatsappURL,
+                "_blank",
+                "noopener,noreferrer"
+            );
+
+            closeQuoteModal();
+
+        });
+
+        /* =====================================================
+           GALLERY FILTER
+        ===================================================== */
+
+        const filterButtons =
+            document.querySelectorAll(".filter-button");
+
+        const galleryItems =
+            document.querySelectorAll(".gallery-item");
+
+        filterButtons.forEach((button) => {
+
+            button.addEventListener("click", () => {
+
+                const filter = button.dataset.filter;
+
+                filterButtons.forEach((item) => {
+                    item.classList.remove("active");
+                });
+
+                button.classList.add("active");
+
+                galleryItems.forEach((item) => {
+
+                    const matches =
+                        filter === "all" ||
+                        item.dataset.category === filter;
+
+                    item.style.display =
+                        matches ? "block" : "none";
+
+                });
+
+                setTimeout(observeReveals, 50);
+
+            });
+
+        });
+
+        /* =====================================================
+           SCROLL REVEAL
+        ===================================================== */
+
+        const revealObserver = new IntersectionObserver(
+            (entries) => {
+
+                entries.forEach((entry) => {
+
+                    if (entry.isIntersecting) {
+
+                        entry.target.classList.add("visible");
+
+                        revealObserver.unobserve(entry.target);
+
+                    }
+
+                });
+
+            },
+            {
+                threshold: 0.08,
+                rootMargin: "0px 0px -40px 0px"
+            }
+        );
+
+        function observeReveals() {
+
+            document
+                .querySelectorAll(".reveal:not(.visible)")
+                .forEach((element) => {
+
+                    revealObserver.observe(element);
+
+                });
+
+        }
+
+        observeReveals();
+
+    </script>
+
+</body>
+</html>
